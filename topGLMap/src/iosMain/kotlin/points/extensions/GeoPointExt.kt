@@ -2,8 +2,8 @@ package points.extensions
 
 import kotlinx.cinterop.CValue
 import kotlinx.cinterop.ExperimentalForeignApi
-import GLMapCore.GLMapGeoPoint as CoreGeoPoint
-import GLMap.GLMapGeoPoint as MapGeoPoint
+import iosGLMapCore.GLMapGeoPoint as CoreGeoPoint
+import iosGLMap.GLMapGeoPoint as MapGeoPoint
 
 @OptIn(ExperimentalForeignApi::class)
 internal fun CValue<CoreGeoPoint>.asMapGeoPoint(): CValue<MapGeoPoint> {

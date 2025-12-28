@@ -1,7 +1,9 @@
+@file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+
 import com.android.build.api.dsl.androidLibrary
-import org.gradle.kotlin.dsl.invoke
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.net.URI
+import org.jetbrains.kotlin.gradle.plugin.mpp.NativeBuildType
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,7 +11,7 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.vanniktech.mavenPublish)
-    id("io.github.frankois944.spmForKmp") version "1.4.0"
+    alias(libs.plugins.kotlinCocoapods)
     id("maven-publish")
 }
 
@@ -17,6 +19,39 @@ group = "org.top.glmap"
 version = "1.0.0"
 
 kotlin {
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        version = "1.0"
+        summary = "Some description for a Kotlin/Native module"
+        homepage = "Link to a Kotlin/Native module homepage"
+
+        name = "TopPod"
+
+        ios.deploymentTarget = "13.0"
+        framework {
+            baseName = "topGLMap"
+            isStatic = false
+            transitiveExport = true
+        }
+
+        pod("GLMapCore") {
+            version = "1.12.0"
+            packageName = "iosGLMapCore"
+        }
+
+        pod("GLMap") {
+            version = "1.12.0"
+            packageName = "iosGLMap"
+        }
+
+        // Maps custom Xcode configuration to NativeBuildType
+        xcodeConfigurationToNativeBuildType["CUSTOM_DEBUG"] = NativeBuildType.DEBUG
+        xcodeConfigurationToNativeBuildType["CUSTOM_RELEASE"] = NativeBuildType.RELEASE
+    }
 
     androidLibrary {
         namespace = "org.top.glmap"
@@ -30,7 +65,7 @@ kotlin {
         }
 
         compilations.configureEach {
-            compileTaskProvider.configure{
+            compileTaskProvider.configure {
                 compilerOptions {
                     jvmTarget.set(
                         JvmTarget.JVM_11
@@ -40,25 +75,11 @@ kotlin {
         }
     }
 
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach { iosTarget ->
-        iosTarget.compilations {
-            val main by getting {
-                // Choose the cinterop name
-                cinterops.create("MyCinterop")
-            }
-        }
-    }
-
-
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+            api(compose.runtime)
+            api(compose.foundation)
+            api(libs.androidx.lifecycle.runtime.compose)
             //put your multiplatform dependencies here
         }
 
@@ -90,41 +111,6 @@ mavenPublishing {
                 email = "topsycrettschannel@gmail.com"
                 url = "https://github.com/TopsyCretts"
             }
-        }
-    }
-}
-
-swiftPackageConfig {
-    val gLMapVersion = libs.versions.glmap.get()
-
-    create("MyCinterop") {
-        minIos = "13.0"
-        dependency {
-            remoteBinary(
-                url = URI("https://globus.software/download/GLMapCore-$gLMapVersion.zip"),
-                packageName = "GLMapCore",
-                checksum = "c4edf9b3757cc9fe8d02a1c6783f6f1c2c2e50d602074db1f92fd8aa56a67a54",
-                exportToKotlin = true
-            )
-            remoteBinary(
-                url = URI("https://globus.software/download/GLMap-$gLMapVersion.zip"),
-                packageName = "GLMap",
-                checksum = "d977bab5085b3ab7016a30d1248f9f33a288b76cdb4c6a53480ed838dc49f3c5",
-                exportToKotlin = true
-            )
-            remoteBinary(
-                url = URI("https://globus.software/download/GLRoute-$gLMapVersion.zip"),
-                packageName = "GLRoute",
-                checksum = "fe6276fa206f06b9853fbc9276f5a99756dcb35f096f58b80338034fc8fc6fbf",
-                exportToKotlin = true
-            )
-            remoteBinary(
-                url = URI("https://globus.software/download/GLSearch-$gLMapVersion.zip"),
-                packageName = "GLSearch",
-                checksum = "6c72a8251da3e408bbd8e40f063db6e6c4c76a05daf57910af0303e6fbac28a3",
-                exportToKotlin = true
-            )
-
         }
     }
 }

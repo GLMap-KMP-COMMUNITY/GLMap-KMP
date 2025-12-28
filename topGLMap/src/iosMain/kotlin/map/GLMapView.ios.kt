@@ -2,7 +2,7 @@ package map
 
 import GLContext
 import GLMapAnimation
-import GLMapCore.GLMapBBoxMake
+import iosGLMapCore.GLMapBBoxMake
 import androidx.compose.ui.geometry.Offset
 import drawable.GLMapDrawObject
 import kotlinx.cinterop.CValue
@@ -25,8 +25,8 @@ import points.MapPoint
 import points.extensions.asMapMapPoint
 import kotlin.math.log
 import kotlin.math.roundToInt
-import GLMap.GLMapPlacement as IosGLMapPlacement
-import GLMap.GLMapView as IosGLMapView
+import iosGLMap.GLMapPlacement as IosGLMapPlacement
+import iosGLMap.GLMapView as IosGLMapView
 
 @Suppress(names = ["EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING"])
 @OptIn(ExperimentalForeignApi::class)
@@ -123,7 +123,7 @@ actual class GLMapView actual constructor(context: GLContext) {
             mapPoint,
             bBox.sizeX,
             bBox.sizeY
-        ) as CValue<GLMap.GLMapBBox>
+        ) as CValue<iosGLMap.GLMapBBox>
         val viewSize = CGSizeMake(
             mapWidth.toDouble() / UIScreen.mainScreen.scale,
             mapHeight.toDouble() / UIScreen.mainScreen.scale

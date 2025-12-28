@@ -2,7 +2,7 @@
 
 package drawable
 
-import GLMap.GLMapDrawable as IosGLMapDrawable
+import iosGLMap.GLMapDrawable as IosGLMapDrawable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize

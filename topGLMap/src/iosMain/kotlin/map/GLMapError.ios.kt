@@ -1,11 +1,11 @@
 package map
 
-import GLMapCore.GLMapError as IosGLMapError
-import GLMapCore.GLMapError_CURL
-import GLMapCore.GLMapError_HTTP
-import GLMapCore.GLMapError_System
-import GLMapCore.GLMapError_Valhalla
-import GLMapCore.GLMapError_XZ
+import iosGLMapCore.GLMapError as IosGLMapError
+import iosGLMapCore.GLMapError_CURL
+import iosGLMapCore.GLMapError_HTTP
+import iosGLMapCore.GLMapError_System
+import iosGLMapCore.GLMapError_Valhalla
+import iosGLMapCore.GLMapError_XZ
 import kotlinx.cinterop.ExperimentalForeignApi
 
 @Suppress(names = ["EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING"])

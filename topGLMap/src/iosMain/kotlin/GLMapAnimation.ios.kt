@@ -1,6 +1,6 @@
 @file:Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 
-import GLMap.GLMapAnimation as IosGLMapAnimation
+import iosGLMap.GLMapAnimation as IosGLMapAnimation
 import drawable.GLMapDrawable
 import kotlinx.cinterop.ExperimentalForeignApi
 import points.GeoPoint

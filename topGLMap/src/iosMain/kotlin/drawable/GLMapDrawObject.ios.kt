@@ -3,7 +3,7 @@
 package drawable
 
 import kotlinx.cinterop.ExperimentalForeignApi
-import GLMap.GLMapDrawObject as IosDrawObject
+import iosGLMap.GLMapDrawObject as IosDrawObject
 
 @OptIn(ExperimentalForeignApi::class)
 actual abstract class GLMapDrawObject {

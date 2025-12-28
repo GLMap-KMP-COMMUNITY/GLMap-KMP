@@ -11,7 +11,7 @@ actual fun GLMap(
     mapView: GLMapView
 ) {
     AndroidView(
-        modifier = Modifier,
+        modifier = modifier,
         factory = { _ ->
             mapView.mapView.apply {
                 clipToOutline = true

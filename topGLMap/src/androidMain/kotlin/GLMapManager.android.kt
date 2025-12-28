@@ -2,7 +2,7 @@
 
 import globus.glmap.GLMapManager as AndroidGLMapManager
 
-actual class GLMapManager {
+actual class GLMapManager actual constructor() {
 
     actual fun initialize(
         context: GLContext,

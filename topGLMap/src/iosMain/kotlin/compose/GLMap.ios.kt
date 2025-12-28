@@ -17,7 +17,7 @@ actual fun GLMap(
     val uiViewController = remember { UIViewController() }
 
     UIKitViewController(
-        modifier = Modifier,
+        modifier = modifier,
         factory = {
             uiViewController.setView(mapView.mapView)
             uiViewController

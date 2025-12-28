@@ -1,7 +1,7 @@
 package points
 
-import GLMapCore.GLMapGeoPointFromMapPoint
-import GLMapCore.GLMapPointMake
+import iosGLMapCore.GLMapGeoPointFromMapPoint
+import iosGLMapCore.GLMapPointMake
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
 
