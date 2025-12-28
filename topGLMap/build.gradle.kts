@@ -1,5 +1,4 @@
 import com.android.build.api.dsl.androidLibrary
-import org.gradle.api.problems.internal.GradleCoreProblemGroup.compilation
 import org.gradle.kotlin.dsl.invoke
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.net.URI
@@ -11,6 +10,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.vanniktech.mavenPublish)
     id("io.github.frankois944.spmForKmp") version "1.4.0"
+    id("maven-publish")
 }
 
 group = "org.top.glmap"
@@ -46,7 +46,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.compilations {
-            getting {
+            val main by getting {
                 // Choose the cinterop name
                 cinterops.create("MyCinterop")
             }
@@ -56,6 +56,9 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(compose.runtime)
+            implementation(compose.foundation)
+            implementation(libs.androidx.lifecycle.runtime.compose)
             //put your multiplatform dependencies here
         }
 
@@ -72,15 +75,15 @@ kotlin {
 mavenPublishing {
     publishToMavenCentral()
 
-    signAllPublications()
+    //signAllPublications()
 
-    coordinates(group.toString(), "library", version.toString())
+    coordinates(group.toString(), "topGLMap", version.toString())
 
     pom {
         name = "GLMap Kotlin Multiplatform Library (COMMUNITY)"
-        description = "A library."
+        description = "A Topsy's GLMap."
         inceptionYear = "2025"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        url = "https://github.com/TopsyCretts/GLMap-KMP"
         developers {
             developer {
                 name = "Gleb Borisov"
@@ -92,7 +95,7 @@ mavenPublishing {
 }
 
 swiftPackageConfig {
-    val gLMapVersion = libs.glmap
+    val gLMapVersion = libs.versions.glmap.get()
 
     create("MyCinterop") {
         minIos = "13.0"

@@ -3,12 +3,14 @@ agp = "8.13.0"
 kotlin = "2.3.0"
 android-minSdk = "24"
 android-compileSdk = "36"
+androidx-lifecycle = "2.9.6"
 vanniktechMavenPublish = "0.35.0"
 compose-multiplatform = "1.9.3"
 glmap = "1.12.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 
 #GLMap
 glmap = { module = "globus:glmap", version.ref = "glmap" }
